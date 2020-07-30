@@ -1,0 +1,11 @@
+# Download and install MYSQL container
+$docker run --name "container_name" -e MYSQL_ROOT_PASSWORD="you_password" -p 3306:3306 -v "your_local_volume":/var/lib/mysql -d mysql:latest
+
+# Download and install Wordpress container
+$docker run --name "container_name" -e WORDPRESS_DB_HOST="DB_IP:DB_Port" -e WORDPRESS_DB_PASSWORD="DB_Password" -e WORDPRESS_DB_NAME=dbwordpress -e WORDPRESS_TABLE_PREFIX=wpLaboratorio -v "your_local_volume":/var/www/html -d wordpress:latest
+
+# Download and install HA Proxy more Load Balance
+$docker run -d --name HaproxyLB -p 80:80 -e BALANCE=source -e MODE=tcp -e OPTION=tcplog --link mywordpress1:"container_wordpress1" --link mywordpress2:"container_wordpress2" dockercloud/haproxy
+
+
+#If you want a mount a lab, acess: https://drive.google.com/file/d/10zTQV2qvlRKK4sw0WPZwHUvHE1mwzGBI/view?usp=sharing and mount a lab with this commands.
